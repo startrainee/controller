@@ -1,13 +1,11 @@
-package com.siasun.controller.netservice;
+package com.siasun.controller.http;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
+import com.alibaba.fastjson.JSONException;
 import com.siasun.controller.Utils.Logger;
 import com.siasun.controller.Utils.SystemUtils;
 import com.siasun.controller.c.Const;
@@ -51,7 +49,6 @@ public class OkHttpClientManager {
     };
 
     private static OkHttpClientManager mInstance;
-    private Gson mGson;
     private Handler mMainThreadHandler;
     private OkHttpClient mOkHttpClient;
 
@@ -76,7 +73,7 @@ public class OkHttpClientManager {
 
     private Request getRequest(String url, HashMap<String, String> values, int request_type) {
         if (request_type == NET_REQUEST_POST) {
-            return getRequestByPost(url, values,null);
+            return getRequestByPost(url, values,"");
         } else {
             return getRequestByGet(url, values);
         }
@@ -183,13 +180,13 @@ public class OkHttpClientManager {
         deliveryResult(callBack,request);
     }
 
-    private void getAysn(String url, HashMap<String, String> values,RequestCallBack callBack) {
+    public void getAysn(String url, HashMap<String, String> values,RequestCallBack callBack) {
         Request request = getRequest(url, values,NET_REQUEST_GET);
         deliveryResult(callBack, request);
     }
 
 
-    private void postAysn(String url, HashMap<String, String> values,RequestCallBack callBack) {
+    public void postAysn(String url, HashMap<String, String> values,RequestCallBack callBack) {
         Request request = getRequest(url, values,NET_REQUEST_POST);
         deliveryResult(callBack, request);
     }
@@ -215,7 +212,7 @@ public class OkHttpClientManager {
                         if (resCallBack.mType == String.class) {
                             sendSuccessResultCallback(responseBody, resCallBack);
                         } else {
-                            Object o = JSONObject.parseObject(responseBody, resCallBack.mType);
+                            Object o = JSON.parseObject(responseBody, resCallBack.mType);
                             sendSuccessResultCallback(o, resCallBack);
                         }
                     } else {
@@ -224,7 +221,7 @@ public class OkHttpClientManager {
                     }
                 } catch (IOException e) {
                     sendFailedStringCallback(response.request(), e, resCallBack);
-                } catch (JsonParseException e) {//Json解析的错误
+                } catch (JSONException e) {//Json解析的错误
                     sendFailedStringCallback(response.request(), e, resCallBack);
                 }
             }

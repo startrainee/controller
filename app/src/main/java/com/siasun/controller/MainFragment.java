@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.siasun.controller.fragment.BaseFragment;
+import com.siasun.controller.view.fragment.BaseFragment;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;

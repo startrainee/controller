@@ -1,4 +1,4 @@
-package com.siasun.controller.activity;
+package com.siasun.controller.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

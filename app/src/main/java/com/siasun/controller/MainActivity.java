@@ -3,7 +3,7 @@ package com.siasun.controller;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.siasun.controller.activity.BaseActivity;
+import com.siasun.controller.view.activity.BaseActivity;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;

@@ -1,4 +1,4 @@
-package com.siasun.controller.netservice;
+package com.siasun.controller.http;
 
 import com.google.gson.internal.$Gson$Types;
 import java.lang.reflect.ParameterizedType;
@@ -15,7 +15,7 @@ public abstract class RequestCallBack<T> {
     //这是请求数据的返回类型，包含常见的（Bean，List等）
     Type mType;
 
-    RequestCallBack() {
+    public RequestCallBack() {
         mType = getSuperclassTypeParameter(getClass());
     }
 
@@ -39,13 +39,13 @@ public abstract class RequestCallBack<T> {
      *
      * @param request okhttp 请求类
      */
-    void onBefore(Request request) {
+    public void onBefore(Request request) {
     }
 
     /**
      * 在请求之后的方法，如加载框隐藏
      */
-    void onAfter() {
+    public void onAfter() {
     }
 
     /**

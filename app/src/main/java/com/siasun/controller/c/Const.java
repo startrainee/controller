@@ -13,4 +13,7 @@ public class Const {
     public static final String ATTRIBUTE_FIlE_TYPE_IMAGE    = "file_image";
 
 
+    public static final String ATTRIBUTE_PREFERENCES        = "controller_pref";
+    public static final String ATTRIBUTE_LOGIN_NAME         = "name";
+    public static final String ATTRIBUTE_LOGIN_PWD          = "pwd";
 }
