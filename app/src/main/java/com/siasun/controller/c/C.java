@@ -5,7 +5,12 @@ package com.siasun.controller.c;
  *
  * @author siasun-wangchongyang
  */
-public class Const {
+public class C {
+
+    public static final String PLATFORM_ANDROID = "0";
+    public static String DeviceId;
+    public static String Tk;
+    public static String DevInfo;
 
     public static final String ATTRIBUTE_FILE_NAME          = "file_name";
     public static final String ATTRIBUTE_TOKEN              = "token";

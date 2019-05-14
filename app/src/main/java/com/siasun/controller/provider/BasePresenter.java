@@ -1,6 +1,6 @@
 package com.siasun.controller.provider;
 
-import com.siasun.controller.c.Const;
+import com.siasun.controller.c.C;
 import com.siasun.controller.data.DataCacheSingleton;
 import com.siasun.controller.http.OkHttpClientManager;
 import com.siasun.controller.http.RequestCallBack;
@@ -25,11 +25,11 @@ abstract class BasePresenter{
         HashMap<String, String> hashMap = new HashMap<>();
         switch (tokenLevel) {
             case CAN_TOKEN_1:
-                hashMap.put(Const.ATTRIBUTE_TOKEN, C.Tk);
+                hashMap.put(C.ATTRIBUTE_TOKEN, C.Tk);
                 break;
             case NO_NEED_TOKEN_0:
                 if (DataCacheSingleton.getInstance().isLogin()) {
-                    hashMap.put(Const.ATTRIBUTE_TOKEN, C.Tk);
+                    hashMap.put(C.ATTRIBUTE_TOKEN, C.Tk);
                 }
                 break;
             case MUST_TOKEN_2:
@@ -41,6 +41,11 @@ abstract class BasePresenter{
 
     void doPostRequest(String url, HashMap<String, String> hashMap, RequestCallBack callBack) {
         OkHttpClientManager.getInstance().postAysn(url, hashMap, callBack);
+    }
+
+    interface BasePresenterCallBack {
+        default void onBefore(Request request){}
+        default void onAfter(){}
     }
 }
 

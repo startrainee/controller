@@ -15,7 +15,7 @@ public abstract class RequestCallBack<T> {
     //这是请求数据的返回类型，包含常见的（Bean，List等）
     Type mType;
 
-    public RequestCallBack() {
+    protected RequestCallBack() {
         mType = getSuperclassTypeParameter(getClass());
     }
 

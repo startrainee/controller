@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.siasun.controller.Utils.Logger;
 import com.siasun.controller.Utils.SystemUtils;
-import com.siasun.controller.c.Const;
+import com.siasun.controller.c.C;
 
 import java.io.File;
 import java.io.IOException;
@@ -84,21 +84,21 @@ public class OkHttpClientManager {
         FormBody.Builder formBodyBuilder = new FormBody.Builder();
 
         for (String attribute : values.keySet()) {
-            if (Const.ATTRIBUTE_TOKEN.equals(attribute)) {
+            if (C.ATTRIBUTE_TOKEN.equals(attribute)) {
                 continue;
             }
             String value = values.get(attribute);
             formBodyBuilder.add(attribute, value == null ? "" : value);
         }
 
-        String token = values.containsKey(Const.ATTRIBUTE_TOKEN) ? values.get(Const.ATTRIBUTE_TOKEN) : "";
+        String token = values.containsKey(C.ATTRIBUTE_TOKEN) ? values.get(C.ATTRIBUTE_TOKEN) : "";
         String phoneInfo = SystemUtils.getSystemModel();
 
         RequestBody requestBody = formBodyBuilder.build();
         return new Request.Builder()
                 .url(url)
-                .header(Const.ATTRIBUTE_PHONE_MODEL, phoneInfo)
-                .header(Const.ATTRIBUTE_TOKEN, token == null ? "" : token)
+                .header(C.ATTRIBUTE_PHONE_MODEL, phoneInfo)
+                .header(C.ATTRIBUTE_TOKEN, token == null ? "" : token)
                 .post(requestBody)
                 .tag(tag)
                 .build();
@@ -125,13 +125,13 @@ public class OkHttpClientManager {
         String fileName = "";
         String token = "";
 
-        if (objectValues.containsKey(Const.ATTRIBUTE_FILE_NAME)) {
-            Object value = objectValues.get(Const.ATTRIBUTE_FILE_NAME);
+        if (objectValues.containsKey(C.ATTRIBUTE_FILE_NAME)) {
+            Object value = objectValues.get(C.ATTRIBUTE_FILE_NAME);
             fileName = value == null ? "" : value.toString();
         }
 
-        if (objectValues.containsKey(Const.ATTRIBUTE_TOKEN)) {
-            Object value = objectValues.get(Const.ATTRIBUTE_TOKEN);
+        if (objectValues.containsKey(C.ATTRIBUTE_TOKEN)) {
+            Object value = objectValues.get(C.ATTRIBUTE_TOKEN);
             token = value == null ? "" : value.toString();
         }
 
@@ -140,7 +140,7 @@ public class OkHttpClientManager {
         builder.setType(MultipartBody.FORM);
 
         for (String key : objectValues.keySet()) {
-            if (key.equals(Const.ATTRIBUTE_FILE_NAME) || key.equals(Const.ATTRIBUTE_TOKEN)) {
+            if (key.equals(C.ATTRIBUTE_FILE_NAME) || key.equals(C.ATTRIBUTE_TOKEN)) {
                 continue;
             }
             Object object = objectValues.get(key);
@@ -158,8 +158,8 @@ public class OkHttpClientManager {
         RequestBody requestBody = builder.build();
         return new Request.Builder()
                 .url(url)
-                .header(Const.ATTRIBUTE_PHONE_MODEL, phoneInfo)
-                .header(Const.ATTRIBUTE_TOKEN, token)
+                .header(C.ATTRIBUTE_PHONE_MODEL, phoneInfo)
+                .header(C.ATTRIBUTE_TOKEN, token)
                 .post(requestBody)
                 .build();
 
@@ -168,7 +168,7 @@ public class OkHttpClientManager {
 
     //上传的文件格式
     private String getMediaType(String fileName) {
-        if (fileName.equals(Const.ATTRIBUTE_FIlE_TYPE_IMAGE)) {
+        if (fileName.equals(C.ATTRIBUTE_FIlE_TYPE_IMAGE)) {
             return "image/png";
         }
         return "";

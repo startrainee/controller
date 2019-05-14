@@ -1,7 +1,8 @@
 package com.siasun.controller.provider;
 
-import com.siasun.controller.c.Const;
+import com.siasun.controller.c.C;
 import com.siasun.controller.http.RequestCallBack;
+import com.siasun.controller.provider.response.LoginResponseBean;
 
 import java.util.HashMap;
 
@@ -14,10 +15,10 @@ import okhttp3.Request;
  */
 public class LoginPresenter extends BasePresenter {
 
-    public void doLogin(String name, String password, TokenLevel tokenLevel, LoginPresenterCallback<LoginResponseBean> callBack) {
+    public void doLogin(String name, String password, TokenLevel tokenLevel, LoginCallback<LoginResponseBean> callBack) {
         HashMap<String, String> hashMap = getRequestHashMap(tokenLevel);
-        hashMap.put(Const.ATTRIBUTE_LOGIN_NAME, name);
-        hashMap.put(Const.ATTRIBUTE_LOGIN_PWD, password);
+        hashMap.put(C.ATTRIBUTE_LOGIN_NAME, name);
+        hashMap.put(C.ATTRIBUTE_LOGIN_PWD, password);
         String url = "";
         doPostRequest(url, hashMap, new RequestCallBack<LoginResponseBean>() {
 
@@ -42,10 +43,10 @@ public class LoginPresenter extends BasePresenter {
         });
     }
 
-    interface LoginPresenterCallback<T>{
-        default void onBefore(Request request){}
-        default void onAfter(){}
+    interface LoginCallback<T> extends BasePresenterCallBack {
         void onLoginSuccess(T response);
         void onLoginFailed();
     }
 }
+
+
